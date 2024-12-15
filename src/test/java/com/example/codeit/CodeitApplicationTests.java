@@ -33,7 +33,7 @@ class CodeitApplicationTests {
 	}
 	 @Test
 	void testCreateGitHubWorkflow() throws Exception {
-		 String repoUrl = "vijay78274/ProChatver1.git"; // Replace with the actual GitHub repository
+		 String repoUrl = "vijay78274/ProChatver1.git"; 
 		 gitHubService.createWorkflow(repoUrl);
 		 gitHubService.createWebhook(repoUrl);
 	 }
@@ -42,30 +42,23 @@ class CodeitApplicationTests {
         projetModel projectSubmission = new projetModel();
         projectSubmission.setRepoUrl("vijay78274/ProChatver1.git");
      }
-	   @Test
+	@Test
     void testSubmitProject() throws Exception {
-        // Prepare test data
         projetModel projectSubmission = new projetModel();
         projectSubmission.setRepoUrl("vijay78274/ProChatver1.git");
-
-        // Mock the GitHubService methods
         doNothing().when(gitHubService).createWorkflow(anyString());
         doNothing().when(gitHubService).createWebhook(anyString());
 
-        // Prepare HTTP headers and body
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         HttpEntity<projetModel> entity = new HttpEntity<>(projectSubmission, headers);
 
-        // Send POST request
         ResponseEntity<String> response = restTemplate.exchange(
                 "/api/projects/submit", HttpMethod.POST, entity, String.class);
 
-        // Verify the response
         assert response.getStatusCode().is2xxSuccessful();
         assert response.getBody().equals("Workflow and webhook created. Testing initiated.");
 
-        // Verify that the methods were called
         verify(gitHubService, times(1)).createWorkflow(projectSubmission.getRepoUrl());
         verify(gitHubService, times(1)).createWebhook(projectSubmission.getRepoUrl());
     }

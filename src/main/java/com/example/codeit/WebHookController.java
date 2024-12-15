@@ -14,10 +14,9 @@ public class WebHookController {
     public ResponseEntity<String> handleGitHubWebhook(@RequestBody Map<String, Object> payload) {
         @SuppressWarnings("unchecked")
         Map<String, Object> workflowRun = (Map<String, Object>) payload.get("workflow_run");
-        String status = (String) workflowRun.get("status");       // "completed" when finished
-        String conclusion = (String) workflowRun.get("conclusion"); // "success" or "failure"
+        String status = (String) workflowRun.get("status");     
+        String conclusion = (String) workflowRun.get("conclusion"); 
         
-        // Process test results as needed (e.g., save to database or trigger notification)
         System.out.println("Test status: " + status + ", conclusion: " + conclusion);
 
         return ResponseEntity.ok("Webhook processed");

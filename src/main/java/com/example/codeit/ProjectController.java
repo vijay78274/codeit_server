@@ -25,32 +25,17 @@ public class ProjectController {
     public ResponseEntity<String> submitProject(@RequestBody projetModel submission) {
         try {
             String repoUrl = submission.getRepoUrl();
-            gitHubService.createWorkflow(repoUrl);  // Adds GitHub Actions workflow
-            gitHubService.createWebhook(repoUrl);   // Sets up webhook for test results
+            gitHubService.createWorkflow(repoUrl);  
+            gitHubService.createWebhook(repoUrl);   
 
             return ResponseEntity.ok("Workflow and webhook created. Testing initiated.");
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error: " + e.getMessage());
         }
     }
-    private static final String[] str = {"vijay78274", "Upay", "github"};
+    private static final String[] str = {"U", "p","ay"};
 
-    // Endpoint to match multiple substrings in the provided string
-    // @PostMapping("/match")
-    // public Map<String, String> matchSubstrings(@RequestBody String providedString) {
-    //     Map<String, String> result = new HashMap<>();
 
-    //     // Check each predefined substring
-    //     for (String substring : PREDEFINED_SUBSTRINGS) {
-    //         if (providedString.contains(substring)) {
-    //             result.put(substring, "Match found");
-    //         } else {
-    //             result.put(substring, "No match found");
-    //         }
-    //     }
-    //     // Return the result as a map of substring -> result
-    //     return result;
-    // }
     @PostMapping("/checkSubstring")
     public ResponseEntity<Map<String, Boolean>> checkSubstring(@RequestBody String input) {
     Map<String, Boolean> result = new HashMap<>();
