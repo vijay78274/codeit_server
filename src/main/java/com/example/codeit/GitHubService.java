@@ -18,7 +18,7 @@ import org.springframework.web.client.RestTemplate;
 @Service
 public class GitHubService {
     private static final String GITHUB_API_BASE = "https://api.github.com/repos/";
-    private static final String GITHUB_TOKEN = "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"; 
+    private static final String GITHUB_TOKEN = ""; 
 
     public void createWorkflow(String repoUrl) throws Exception {
     String workflowContent = "name: Run Tests\n" +
@@ -55,7 +55,7 @@ public class GitHubService {
     body.put("message", "Add GitHub Actions workflow for testing");
     body.put("content", encodedContent);
     if (sha != null) {
-        body.put("sha", sha); // Include SHA for updates
+        body.put("sha", sha); 
     }
 
     HttpEntity<Map<String, Object>> request = new HttpEntity<>(body, headers);
